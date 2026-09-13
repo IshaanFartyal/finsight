@@ -1,0 +1,5 @@
+"Datum";"Naam / Omschrijving";"Rekening";"Tegenrekening";"Code";"Af Bij";"Bedrag (EUR)";"Mutatiesoort";"Mededelingen";"Saldo na mutatie";"Tag"
+"20260912";"Albert Heijn";"NL12INGB0123456789";"NL01BANK1234567890";"BA";"Af";"34,82";"Betaalautomaat";"ALBERT HEIJN EINDHOVEN";"1465,18";""
+"20260911";"Spotify";"NL12INGB0123456789";"NL02BANK1234567890";"IC";"Af";"10,99";"Incasso";"SPOTIFY PREMIUM";"1500,00";""
+"20260910";"Employer";"NL12INGB0123456789";"NL03BANK1234567890";"OV";"Bij";"850,00";"Overschrijving";"SALARY SEPTEMBER";"1510,99";""
+"20260909";"NS";"NL12INGB0123456789";"NL04BANK1234567890";"BA";"Af";"18,40";"Betaalautomaat";"NS REIZEN";"660,99";""

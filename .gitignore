@@ -1,0 +1,40 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache/build files
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# VS Code
+.vscode/
+
+# Tool caches
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Real/local bank data
+transactions.csv
+bank_statement*.csv
+statement*.csv
+exports/
+private_data/
+data/
+
+# Keep synthetic portfolio samples
+!sample_data/
+!sample_data/*.csv

@@ -1,0 +1,189 @@
+# ING Bank Statement currently unverified. From ING bank statement template available from website so should be right, but not verified. Bear in mind.
+
+import pandas as pd
+
+
+def parse_ing(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Parse an ING Netherlands EUR CSV export and convert it into
+    FinSight's standard transaction format.
+
+    Expected columns:
+    Datum
+    Naam / Omschrijving
+    Rekening
+    Tegenrekening
+    Code
+    Af Bij
+    Bedrag (EUR)
+    Mutatiesoort
+    Mededelingen
+    Saldo na mutatie
+    Tag
+    """
+
+    required_columns = {
+        "Datum",
+        "Naam / Omschrijving",
+        "Rekening",
+        "Tegenrekening",
+        "Code",
+        "Af Bij",
+        "Bedrag (EUR)",
+        "Mutatiesoort",
+        "Mededelingen",
+        "Saldo na mutatie",
+        "Tag",
+    }
+
+    missing_columns = required_columns - set(df.columns)
+
+    if missing_columns:
+        raise ValueError(
+            f"ING CSV is missing required columns: {missing_columns}"
+        )
+
+    df = df.copy()
+
+    # ----------------------------
+    # DATE
+    # ING format: YYYYMMDD
+    # ----------------------------
+
+    df["date"] = pd.to_datetime(
+        df["Datum"].astype(str),
+        format="%Y%m%d",
+        errors="coerce"
+    )
+
+    # ----------------------------
+    # DESCRIPTION
+    # ----------------------------
+
+    df["description"] = (
+        df["Naam / Omschrijving"]
+        .fillna("")
+        .astype(str)
+        .str.strip()
+    )
+
+    # Use Mededelingen if description is empty
+    messages = (
+        df["Mededelingen"]
+        .fillna("")
+        .astype(str)
+        .str.strip()
+    )
+
+    empty_description = df["description"] == ""
+
+    df.loc[
+        empty_description,
+        "description"
+    ] = messages[empty_description]
+
+    df.loc[
+        df["description"] == "",
+        "description"
+    ] = "Unknown transaction"
+
+    # ----------------------------
+    # AMOUNT
+    # Dutch decimal comma -> decimal point
+    # ----------------------------
+
+    amount = (
+        df["Bedrag (EUR)"]
+        .fillna("")
+        .astype(str)
+        .str.replace(".", "", regex=False)
+        .str.replace(",", ".", regex=False)
+        .str.strip()
+    )
+
+    amount = pd.to_numeric(
+        amount,
+        errors="coerce"
+    )
+
+    direction = (
+        df["Af Bij"]
+        .fillna("")
+        .astype(str)
+        .str.strip()
+        .str.lower()
+    )
+
+    df["amount"] = amount.abs()
+
+    # "Af" = money going out
+    df.loc[
+        direction == "af",
+        "amount"
+    ] *= -1
+
+    # "Bij" = money coming in
+    df.loc[
+        direction == "bij",
+        "amount"
+    ] = df.loc[
+        direction == "bij",
+        "amount"
+    ].abs()
+
+    # ----------------------------
+    # BALANCE
+    # ----------------------------
+
+    balance = (
+        df["Saldo na mutatie"]
+        .fillna("")
+        .astype(str)
+        .str.replace(".", "", regex=False)
+        .str.replace(",", ".", regex=False)
+        .str.strip()
+    )
+
+    df["balance"] = pd.to_numeric(
+        balance,
+        errors="coerce"
+    )
+
+    # ----------------------------
+    # STANDARD FIELDS
+    # ----------------------------
+
+    df["currency"] = "EUR"
+
+    df["transaction_type"] = (
+        df["Mutatiesoort"]
+        .fillna("")
+        .astype(str)
+        .str.strip()
+    )
+
+    df["fee"] = 0.0
+    df["bank"] = "ING"
+    df["category"] = "Uncategorized"
+
+    # Remove invalid rows
+    df = df.dropna(
+        subset=["date", "amount"]
+    )
+
+    # Sort oldest -> newest
+    df = df.sort_values("date")
+
+    standard_columns = [
+        "date",
+        "description",
+        "amount",
+        "currency",
+        "bank",
+        "transaction_type",
+        "fee",
+        "balance",
+        "category",
+    ]
+
+    return df[standard_columns].reset_index(drop=True)

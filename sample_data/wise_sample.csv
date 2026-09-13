@@ -1,0 +1,4 @@
+ID,Date,Date Time,Amount,Currency,Description,Payment Reference,Running Balance,Exchange From,Exchange To,Exchange Rate,Total Fees,Payer Name,Payee Name,Payee Account Number,Merchant,Card Last Four Digits,Card Holder Full Name,Attachment,Note,Exchange To Amount,Transaction Type,Transaction Details Type
+W001,2026-09-01,2026-09-01 09:00:00,2200.00,EUR,Salary,SALARY-SEPT,3200.00,,,,0.00,Employer,,,,,,,,,CREDIT,BANK_TRANSFER
+W002,2026-09-02,2026-09-02 13:15:00,-42.35,EUR,Groceries,,3157.65,,,,0.00,,,,Albert Heijn,1234,Ishaan,,,,DEBIT,CARD
+W003,2026-09-03,2026-09-03 08:05:00,-10.99,EUR,Subscription,,3146.66,,,,0.00,,,,Spotify,1234,Ishaan,,,,DEBIT,CARD
