@@ -1,6 +1,6 @@
-# FinSight
+# Finsight
 
-FinSight is a Python and Streamlit personal finance analytics app that reads your bank statement CSV files, normalizes transactions into a common format, and produces basic spending and savings insights.
+Finsight is a Python and Streamlit personal finance analytics app that reads your bank statement CSV files, normalizes transactions into a common format, and produces basic spending and savings insights.
 
 ## Features
 
@@ -70,9 +70,9 @@ Then open the local Streamlit page in your browser and upload a supported CSV st
 
 ## Supported Formats
 
-FinSight currently includes dedicated parsers for Revolut and Wise CSV exports. Dedicated parser for ING is created through an online template, but not verified.
+Finsight currently includes dedicated parsers for Revolut and Wise CSV exports. Dedicated parser for ING is created through an online template, but not verified.
 
-If the bank is not recognized, FinSight attempts to interpret the file using a generic CSV parser. Generic-parser results are explicitly marked as coming from an undetected bank and may be less reliable.
+If the bank is not recognized, Finsight attempts to interpret the file using a generic CSV parser. Generic-parser results are explicitly marked as coming from an undetected bank and may be less reliable.
 
 If the generic parser cannot identify enough information to interpret the file, the app reports that the statement could not be interpreted.
 
@@ -84,7 +84,7 @@ The `sample_data` folder contains synthetic CSV files for testing. These files c
 
 Bank statements can contain highly sensitive personal and financial information.
 
-FinSight is currently intended as a local development/portfolio project. DO NOT commit real bank statements, account numbers, transaction histories, or other sensitive financial data to GitHub.
+Finsight is currently intended as a local development/portfolio project. DO NOT commit real bank statements, account numbers, transaction histories, or other sensitive financial data to GitHub.
 
 The included `.gitignore` excludes common local bank-statement filenames and data folders, but you should still verify staged files before every commit.
 
@@ -93,7 +93,7 @@ The included `.gitignore` excludes common local bank-statement filenames and dat
 - Transaction categorization is currently rule-based.
 - Generic CSV parsing is best-effort and may interpret unusual formats incorrectly.
 - Bank export formats may change over time and can require parser updates.
-- FinSight does not provide financial, investment, tax, or legal advice.
+- Finsight does not provide financial, investment, tax, or legal advice.
 
 ## Possible Future Improvements
 
@@ -117,4 +117,4 @@ The included `.gitignore` excludes common local bank-statement filenames and dat
 
 ## If you made it this far
 
-Thanks for checking FinSight out! You can find me on LinkedIn at https://www.linkedin.com/in/ishaanfartyal/
+Thanks for checking Finsight out! You can find me on LinkedIn at https://www.linkedin.com/in/ishaanfartyal/
