@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 import streamlit as st
 from pandas.errors import ParserError
 
@@ -6,7 +8,10 @@ from analytics import (
     calculate_spending_by_category,
     calculate_summary,
 )
-from categorizer import categorize_transaction
+from categorizer import (
+    DEFAULT_CATEGORY_RULES,
+    categorize_transaction,
+)
 from parsers.detector import detect_bank
 from parsers.generic import parse_generic
 from parsers.ing import parse_ing
@@ -27,6 +32,73 @@ st.set_page_config(
 st.title("FinSight")
 st.write("Upload a bank statement CSV to analyze your finances.")
 
+if "category_rules" not in st.session_state:
+    st.session_state.category_rules = deepcopy(
+        DEFAULT_CATEGORY_RULES
+    )
+
+# ----------------------------
+# SIDEBAR CATEGORY EDITOR
+# ----------------------------
+
+st.sidebar.header("Transaction Categories")
+
+for category, keywords in st.session_state.category_rules.items():
+    with st.sidebar.expander(category):
+
+        keyword_text = st.text_area(
+            f"Keywords for {category}",
+            value=", ".join(keywords),
+            key=f"keywords_{category}",
+        )
+
+        updated_keywords = [
+            keyword.strip()
+            for keyword in keyword_text.split(",")
+            if keyword.strip()
+        ]
+
+        st.session_state.category_rules[
+            category
+        ] = updated_keywords
+
+
+st.sidebar.subheader("Add Category")
+
+new_category = st.sidebar.text_input(
+    "Category name"
+)
+
+new_keywords = st.sidebar.text_input(
+    "Keywords",
+    placeholder="GYM, BASIC FIT, SPORTCITY"
+)
+
+if st.sidebar.button("Add Category"):
+    if new_category:
+        keyword_list = [
+            keyword.strip()
+            for keyword in new_keywords.split(",")
+            if keyword.strip()
+        ]
+
+        st.session_state.category_rules[
+            new_category
+        ] = keyword_list
+
+        st.rerun()
+
+
+# ----------------------------
+# RESET CATEGORIES
+# ----------------------------
+
+if st.sidebar.button("Reset Categories"):
+    st.session_state.category_rules = deepcopy(
+        DEFAULT_CATEGORY_RULES
+    )
+
+    st.rerun()
 
 # ----------------------------
 # FILE UPLOAD
@@ -82,7 +154,13 @@ if uploaded_file is not None:
 
         df["category"] = (
             df["description"]
-            .apply(categorize_transaction)
+            .apply(
+                lambda description:
+                categorize_transaction(
+                    description,
+                    st.session_state.category_rules
+                )
+            )
         )
 
         # ----------------------------

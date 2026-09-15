@@ -1,78 +1,53 @@
-def categorize_transaction(description):
+DEFAULT_CATEGORY_RULES = {
+    "Groceries": [
+        "ALBERT HEIJN",
+        "JUMBO",
+        "LIDL",
+        "ALDI",
+    ],
+    "Subscriptions": [
+        "SPOTIFY",
+        "NETFLIX",
+        "YOUTUBE PREMIUM",
+    ],
+    "Transport": [
+        "UBER",
+        "NS ",
+        "OVPAY",
+        "SHELL",
+    ],
+    "Restaurants": [
+        "MCDONALD",
+        "BURGER KING",
+        "RESTAURANT",
+        "CAFE",
+    ],
+    "Shopping": [
+        "AMAZON",
+        "BOL.COM",
+        "ZALANDO",
+    ],
+    "Housing": [
+        "RENT",
+        "HOUSING",
+        "DUWO",
+    ],
+    "Income": [
+        "SALARY",
+        "SALARIS",
+        "PAYROLL",
+    ],
+}
+
+
+def categorize_transaction(description, category_rules):
     description = description.upper()
 
-    if any(
-        word in description
-        for word in [
-            "ALBERT HEIJN",
-            "JUMBO",
-            "LIDL",
-            "ALDI",
-        ]
-    ):
-        return "Groceries"
+    for category, keywords in category_rules.items():
 
-    elif any(
-        word in description
-        for word in [
-            "SPOTIFY",
-            "NETFLIX",
-            "YOUTUBE PREMIUM",
-        ]
-    ):
-        return "Subscriptions"
+        for keyword in keywords:
 
-    elif any(
-        word in description
-        for word in [
-            "UBER",
-            "NS ",
-            "OVPAY",
-            "SHELL",
-        ]
-    ):
-        return "Transport"
+            if keyword.upper() in description:
+                return category
 
-    elif any(
-        word in description
-        for word in [
-            "MCDONALD",
-            "BURGER KING",
-            "RESTAURANT",
-            "CAFE",
-        ]
-    ):
-        return "Restaurants"
-
-    elif any(
-        word in description
-        for word in [
-            "AMAZON",
-            "BOL.COM",
-            "ZALANDO",
-        ]
-    ):
-        return "Shopping"
-
-    elif any(
-        word in description
-        for word in [
-            "RENT",
-            "HOUSING",
-            "DUWO",
-        ]
-    ):
-        return "Housing"
-
-    elif any(
-        word in description
-        for word in [
-            "SALARY",
-            "SALARIS",
-            "PAYROLL",
-        ]
-    ):
-        return "Income"
-
-    else:
-        return "Other"
+    return "Other"

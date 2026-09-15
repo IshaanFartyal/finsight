@@ -10,6 +10,7 @@ Finsight is a Python and Streamlit personal finance analytics app that reads you
 - Automatic comma/semicolon delimiter detection
 - Transaction normalization into a common schema
 - Rule-based transaction type categorization
+- User editable transaction categories and keyword rules
 - Financial summary metrics: income, expenses, savings, and savings rate
 - Spending by category
 - Monthly spending trends
