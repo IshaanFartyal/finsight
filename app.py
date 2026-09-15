@@ -74,19 +74,18 @@ new_keywords = st.sidebar.text_input(
     placeholder="GYM, BASIC FIT, SPORTCITY"
 )
 
-if st.sidebar.button("Add Category"):
-    if new_category:
-        keyword_list = [
-            keyword.strip()
-            for keyword in new_keywords.split(",")
-            if keyword.strip()
-        ]
+if st.sidebar.button("Add Category") and new_category:
+    keyword_list = [
+        keyword.strip()
+        for keyword in new_keywords.split(",")
+        if keyword.strip()
+    ]
 
-        st.session_state.category_rules[
-            new_category
-        ] = keyword_list
+    st.session_state.category_rules[
+        new_category
+    ] = keyword_list
 
-        st.rerun()
+    st.rerun()
 
 
 # ----------------------------
