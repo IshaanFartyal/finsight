@@ -98,7 +98,7 @@ The included `.gitignore` excludes common local bank-statement filenames and dat
 
 ## Possible Future Improvements
 
-- Additional verified formats i.e. dedicated CSV parsers for popular Dutch banks including: ING, ABN AMRO, Rabo Bank, Bunq. This can only be done verifiably through obtaining actual bank statement templates from these banks, which I currently do not have access to. Perhaps in the future.
+- Additional verified formats i.e. dedicated CSV parsers for popular Dutch banks such as: ABN AMRO, Rabo Bank, Bunq, to name a few. This can only be done verifiably through obtaining actual bank statement templates from these banks, which I currently do not have access to. Perhaps in the future.
 - Recurring subscription detection
 - Month-over-month spending comparisons
 - Additional personal finance metrics
