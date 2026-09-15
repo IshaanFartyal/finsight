@@ -96,19 +96,18 @@ The included `.gitignore` excludes common local bank-statement filenames and dat
 - Bank export formats may change over time and can require parser updates.
 - Finsight does not provide financial, investment, tax, or legal advice.
 
-## Possible Future Improvements
+## Roadmap
 
-- Additional verified formats i.e. dedicated CSV parsers for popular Dutch banks such as: ABN AMRO, Rabo Bank, Bunq, to name a few. This can only be done verifiably through obtaining actual bank statement templates from these banks, which I currently do not have access to. Perhaps in the future.
-- Recurring subscription detection
-- Month-over-month spending comparisons
-- Additional personal finance metrics
-- User-editable categories
-- Anomaly detection
-- Budget targets and goal tracking
-- AI integration
-    - AI detection of unidentifiable bank statement
-    - AI analysis and feedback based on calculated metrics
-    - AI coaching to achieve personal financial targets
+- [ ] Additional bank integrations
+    - [ ] Verify ING
+    - [ ] ABN AMRO
+    - [ ] Rabobank
+    - [ ] Bunq
+- [ ] Monthly dashboard filter
+- [ ] Recurring subscription detection
+- [ ] Unusual spending detection
+- [ ] User-defined budget goals and recommendations
+- [ ] AI integration and financial insights
 
 ## Tech Stack
 

@@ -24,12 +24,12 @@ from parsers.wise import parse_wise
 # ----------------------------
 
 st.set_page_config(
-    page_title="FinSight",
+    page_title="Finsight",
     page_icon="💰",
     layout="wide",
 )
 
-st.title("FinSight")
+st.title("Finsight")
 st.write("Upload a bank statement CSV to analyze your finances.")
 
 if "category_rules" not in st.session_state:
